@@ -1,72 +1,117 @@
-# Desafio de Desenvolvimento
+## 🧾 Visão Geral
 
-Este é o desafio prático para a vaga de Desenvolvedor(a). O objetivo é construir uma aplicação web que utiliza **React** com **TypeScript**, **Firebase Auth**, **Firebase Firestore**, **Firebase Functions**, **Material UI** e **TailwindCSS**.
+Este projeto é uma aplicação web desenvolvida com **React** e **TypeScript**, que utiliza **Firebase** como backend para autenticação e banco de dados em tempo real. O foco do sistema é permitir que usuários realizem **cadastro**, **login** e **gerenciem conexões** ou mensagens.
 
-## Tecnologias Utilizadas
+### 🧱 Tecnologias Utilizadas
 
-- **React** com **TypeScript**
-- **Firebase Auth** (para autenticação)
-- **Firebase Firestore** (para banco de dados)
-- **Firebase Functions** (para funções automatizadas)
-- **Material UI** (componentes de interface)
-- **TailwindCSS** (estilização)
+- **React (TypeScript)** – Framework principal para o frontend
+- **TailwindCSS** – Framework utilitário para estilos
+- **Firebase** – Backend como serviço (Auth, Firestore, etc)
+- **Material UI** – Biblioteca de componentes UI
+- **Vite** – Ferramenta de build para o projeto React
+- **React Router** – Gerenciamento de rotas
 
-## Funcionalidades Requeridas
+---
 
-### 1. **Autenticação**
+## 📂 Estrutura de Arquivos
 
-- Crie as telas de **login** e **cadastro** utilizando **Firebase Auth**.
-- Garanta que cada usuário tenha acesso apenas aos seus próprios dados (formato SaaS).
+```
+src/
+├── components/
+├── contexts/
+├── firebase/
+├── guards/
+├── hooks/
+├── layouts/
+├── pages/
+├── routes/
+├── sections/
+├── theme/
+├── types/
+├── validations/
+```
 
-### 2. **Conexões**
+---
 
-- Desenvolva uma tela para gerenciar uma **lista de conexões**.
-  - Cada conexão deve ter apenas um campo: **Nome da Conexão**.
+## 🔐 Funcionalidades
 
-### 3. **Contatos**
+### ✅ Cadastro de Usuário
 
-- Cada conexão deve ter sua própria **lista de contatos**.
-  - Um contato deve possuir os campos: **Nome** e **Telefone**.
+O componente `registerForm.tsx` contém o formulário que coleta nome, email e senha do usuário. Após preenchimento:
 
-### 4. **Envio de Mensagens (Broadcast)**
+- Validação dos campos
+- Registro via `createUserWithEmailAndPassword` (Firebase Auth)
+- Possível redirecionamento ou confirmação
 
-- Crie uma tela para **envio de mensagens** com as seguintes funcionalidades:
-  - Selecionar contatos específicos da lista para envio de mensagens.
-  - Agendar o envio de mensagens para um horário futuro (utilize **Firebase Functions** para disparar automaticamente).
-  - Simular o envio das mensagens (**não é necessário enviar mensagens reais, apenas atualizar o status**).
+### 🔑 Login de Usuário
 
-### 5. **Gerenciamento de Mensagens**
+O componente `loginForm.tsx` permite login com email e senha utilizando o `signInWithEmailAndPassword` do Firebase Auth. Após login bem-sucedido:
 
-- Desenvolva uma tela com as funcionalidades:
-  - Filtrar mensagens por status (**enviadas** e **agendadas**).
-  - Atualizar automaticamente o status das mensagens agendadas para **"Enviada"** no horário programado (via **Firebase Functions**).
+- O usuário é redirecionado
+- Seu estado de autenticação é mantido
 
-### 6. **Realtime Firestore**
+### 🔧 Configurações
 
-- O projeto deve utilizar o recurso de **Realtime do Firestore** para atualizar as listas de conexões, contatos e mensagens automaticamente na interface.
+O arquivo `config.ts` centraliza configurações como a inicialização do Firebase.
 
-### 7. **Código Limpo e Boas Práticas**
+---
 
-- **Aplicar os princípios de Clean Code** em toda a implementação.
-- O código deve ser **bem estruturado, organizado e legível**, facilitando a manutenção e evolução do projeto.
+## 📌 Rotas da Aplicação
 
-## Requisitos de Segurança e Formato SaaS
+O `App.tsx` define as rotas da aplicação com `react-router-dom`. As principais são:
 
-- Garanta que cada cliente (usuário autenticado) visualize apenas suas próprias conexões, contatos e mensagens.
-- Não permita que usuários tenham acesso a dados de outros clientes.
+- `/login` – Página de autenticação
+- `/register` – Página de cadastro
+- `/` – Página principal
 
-## UI/UX
+---
 
-- Utilize componentes prontos do **Material UI**.
-- Estilização complementar e layout responsivo com **TailwindCSS**.
+## 💅 Estilo
 
-## Instalação e Execução
+O projeto utiliza **TailwindCSS** como base para o design visual. Isso permite:
 
-### 1. **Clone o repositório**
+- Alta customização
+- Estilização responsiva e rápida
+- Boa integração com Material UI
 
-Clone este repositório para o seu ambiente local:
+---
+
+## 🚀 Como Rodar o Projeto
+
+1. **Instalar dependências**
+
+   ```bash
+   npm install
+   ```
+
+   ```bash
+   yarn install
+   ```
+
+2. **Variáveis de Ambiente (.env)**
+
+O projeto utiliza variáveis de ambiente para configurar o Firebase.
 
 ```bash
-git clone git@github.com:r2brito/message-hub.git
-cd message-hub
+cp .env.example .env
 ```
+
+```env
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+REACT_APP_FIREBASE_APPID=your_app_id
+REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
+```
+
+> 🔒 **Importante:** nunca suba o `.env` para o controle de versão. Adicione ele ao seu `.gitignore`.
+
+3. **Rodar aplicação**
+
+   ```bash
+   yarn start
+   ```
+
+---
