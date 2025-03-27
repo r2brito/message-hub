@@ -1,0 +1,4 @@
+.eslintrc.js
+tsconfig.*.json
+functions/
+tailwind.config.js
